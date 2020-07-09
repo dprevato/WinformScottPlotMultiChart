@@ -22,7 +22,6 @@ namespace WinformScottPlotMultiChart
       {
          var repo = new ChartDTO(); // is used only for get readings data
 
-
          foreach (var data in Chart.ChartData)
          {
             repo.GetReadings(data.Series);
@@ -55,15 +54,22 @@ namespace WinformScottPlotMultiChart
                }
             }
          }
-         //? If I put this block of code BEFORE the foreach block, the curves won't get plotted. I can't understand why...
+
+         //? If I put this block of code BEFORE the foreach block, the curves (only them) won't get plotted. I can't understand why...
          if (Chart.Title != null) PlotControl.plt.Title(Chart.Title);
          if (Chart.YAxisTitle != null) PlotControl.plt.YLabel(Chart.YAxisTitle, fontSize: 12); // 12 pt, experimental
          if (Chart.YMin.HasValue) PlotControl.plt.GetSettings().axes.y.min = Chart.YMin.Value; // forcing min Y
          if (Chart.YMax.HasValue) PlotControl.plt.GetSettings().axes.y.max = Chart.YMax.Value; // forcing max Y
-         if (Chart.ShowLegend) PlotControl.plt.Legend();                                       // show legend
+         if (Chart.ShowLegend) PlotControl.plt.Legend(enableLegend: true, location: legendLocation.upperCenter);                                       // show legend
          //? Till here
 
          PlotControl.plt.Ticks(dateTimeX: true); // L'asse X riporta date
+         //! 20200708: Thanks to Scott, I'm trying this for gain space for curves...
+         double titleH;
+         if (Chart.Title != null) titleH = Chart.Title.Length == 0 ? 10d : 50d;
+         else titleH = 10d;
+         PlotControl.plt.Layout(titleHeight: titleH, xLabelHeight: 0);
+         //! And it works like a charm, once found the optimal height for a void chart title... 
          PlotControl.Render();
       }
    }

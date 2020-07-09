@@ -54,7 +54,7 @@ namespace WinformScottPlotMultiChart
                   YAxisTitle = "<-V mm M->",
                   YMin = -5,
                   YMax = 15,
-                  ShowLegend = false,
+                  ShowLegend = true,
                   HeightQuote = 30f,
                   ChartData = new List<ChartDataModel>
                   {
@@ -124,7 +124,7 @@ namespace WinformScottPlotMultiChart
                   YAxisTitle = "<-M mm V->",
                   YMin = -5,
                   YMax = 15,
-                  ShowLegend = false,
+                  ShowLegend = true,
                   HeightQuote = 30f,
                   ChartData = new List<ChartDataModel>
                   {
